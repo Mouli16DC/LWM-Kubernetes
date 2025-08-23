@@ -212,7 +212,7 @@ spec:
     - containerPort: 8080
 ```
 
-### 4️⃣ Pod: mythirdpod (Multi-Container: httpd + nginx)
+### 4️⃣ Pod: mythirdpod (Multi-Container: httpd + nginx)  - crashloopbackoff isues
 
 ```yaml
 apiVersion: v1
@@ -2568,6 +2568,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
