@@ -186,6 +186,7 @@ kubectl edit ns <name> → Edit a namespace configuration.
 kubectl annotate ns <name> key=value → Add or update annotations in a namespace.
 
 kubectl label ns <name> key=value → Add or update labels in a namespace.
+
 ### 2️⃣ Pod: myfirstpod (Single Container)
 
 ```yaml
@@ -2532,3 +2533,4 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
