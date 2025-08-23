@@ -247,7 +247,7 @@ spec:
     - containerPort: 80
 ```
 
-```
+```text
 
 kubectl get pods → List pods in the current namespace.
 
@@ -2568,6 +2568,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
