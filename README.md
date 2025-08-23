@@ -162,30 +162,20 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: qa
-```
-kubectl get ns → List all namespaces.
 
-kubectl get ns <name> → Show details of a specific namespace.
+1.	kubectl get ns → List all namespaces.
+2.	kubectl get ns <name> → Show details of a specific namespace.
+3.	kubectl describe ns <name> → Display detailed information about a namespace.
+4.	kubectl create ns <name> → Create a new namespace.
+5.	kubectl delete ns <name> → Delete a namespace and all its resources.
+6.	kubectl config set-context --current --namespace=<name> → Set default namespace for current context.
+7.	kubectl config view --minify | grep namespace: → Show the current default namespace.
+8.	kubectl get all -n <name> → List all resources inside a namespace.
+9.	kubectl get pods --all-namespaces → List pods across all namespaces.
+10.	kubectl edit ns <name> → Edit a namespace configuration.
+11.	kubectl annotate ns <name> key=value → Add or update annotations in a namespace.
+12.	kubectl label ns <name> key=value → Add or update labels in a namespace.
 
-kubectl describe ns <name> → Display detailed information about a namespace.
-
-kubectl create ns <name> → Create a new namespace.
-
-kubectl delete ns <name> → Delete a namespace and all its resources.
-
-kubectl config set-context --current --namespace=<name> → Set default namespace for current context.
-
-kubectl config view --minify | grep namespace: → Show the current default namespace.
-
-kubectl get all -n <name> → List all resources inside a namespace.
-
-kubectl get pods --all-namespaces → List pods across all namespaces.
-
-kubectl edit ns <name> → Edit a namespace configuration.
-
-kubectl annotate ns <name> key=value → Add or update annotations in a namespace.
-
-kubectl label ns <name> key=value → Add or update labels in a namespace.
 
 ### 2️⃣ Pod: myfirstpod (Single Container)
 
@@ -2533,4 +2523,5 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
