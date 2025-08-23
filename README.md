@@ -247,6 +247,8 @@ spec:
     - containerPort: 80
 ```
 
+```
+
 kubectl get pods → List pods in the current namespace.
 
 kubectl get pods -A → List pods across all namespaces.
@@ -286,6 +288,8 @@ kubectl cp <localPath> <ns>/<pod>:<path> → Copy files from local machine to a 
 kubectl get pod <name> -o yaml → Output pod definition in YAML.
 
 kubectl get pod <name> -o wide → Show pod details including node and IP.
+
+```
 
 ### 6️⃣ ReplicaSet: lwm-replica (5 Replicas)
 
@@ -2564,6 +2568,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
