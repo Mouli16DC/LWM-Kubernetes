@@ -163,7 +163,29 @@ kind: Namespace
 metadata:
   name: qa
 ```
+kubectl get ns → List all namespaces.
 
+kubectl get ns <name> → Show details of a specific namespace.
+
+kubectl describe ns <name> → Display detailed information about a namespace.
+
+kubectl create ns <name> → Create a new namespace.
+
+kubectl delete ns <name> → Delete a namespace and all its resources.
+
+kubectl config set-context --current --namespace=<name> → Set default namespace for current context.
+
+kubectl config view --minify | grep namespace: → Show the current default namespace.
+
+kubectl get all -n <name> → List all resources inside a namespace.
+
+kubectl get pods --all-namespaces → List pods across all namespaces.
+
+kubectl edit ns <name> → Edit a namespace configuration.
+
+kubectl annotate ns <name> key=value → Add or update annotations in a namespace.
+
+kubectl label ns <name> key=value → Add or update labels in a namespace.
 ### 2️⃣ Pod: myfirstpod (Single Container)
 
 ```yaml
@@ -2507,5 +2529,6 @@ Join our **Discord Community**
 ### 📺 Explore More Learning
 Subscribe to our **YouTube Channel** – *Learn With Mithran*  
 🎯 [Watch Now](https://www.youtube.com/@LearnWithMithran)
+
 
 ---
