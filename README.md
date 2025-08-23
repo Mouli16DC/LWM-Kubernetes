@@ -230,6 +230,8 @@ spec:
     ports:
     - containerPort: 80
 ```
+k describe pod <podname>
+k logs <podname> -c <conatainer name> 
 
 ### 5️⃣ Pod: myfirstpod in dev Namespace
 
@@ -288,6 +290,9 @@ kubectl cp <localPath> <ns>/<pod>:<path> → Copy files from local machine to a 
 kubectl get pod <name> -o yaml → Output pod definition in YAML.
 
 kubectl get pod <name> -o wide → Show pod details including node and IP.
+
+kubectl logs mysecondpod -c nginx
+
 
 ```
 
@@ -2568,6 +2573,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
