@@ -177,6 +177,7 @@ metadata:
 12.	kubectl label ns <name> key=value → Add or update labels in a namespace.
 
 
+
 ### 2️⃣ Pod: myfirstpod (Single Container)
 
 ```yaml
@@ -245,6 +246,46 @@ spec:
     ports:
     - containerPort: 80
 ```
+
+kubectl get pods → List pods in the current namespace.
+
+kubectl get pods -A → List pods across all namespaces.
+
+kubectl get pod <name> → Show details of a specific pod.
+
+kubectl describe pod <name> → Display detailed information about a pod.
+
+kubectl create -f pod.yaml → Create a pod from a manifest file.
+
+kubectl run <name> --image=<image> → Create a pod quickly with a specific image.
+
+kubectl delete pod <name> → Delete a specific pod.
+
+kubectl delete pods --all → Delete all pods in the current namespace.
+
+kubectl edit pod <name> → Edit a pod’s definition in place.
+
+kubectl logs <name> → View logs of a pod’s main container.
+
+kubectl logs <name> -c <container> → View logs of a specific container in the pod.
+
+kubectl logs -f <name> → Stream logs of a pod (follow mode).
+
+kubectl exec -it <name> -- /bin/sh → Open a shell session inside a pod.
+
+kubectl exec -it <name> -c <container> -- /bin/bash → Open shell inside a specific container of the pod.
+
+kubectl port-forward pod/<name> <localPort>:<podPort> → Forward local port to a pod port.
+
+kubectl top pod <name> → Show resource usage (CPU/Memory) of a pod.
+
+kubectl cp <ns>/<pod>:<path> <localPath> → Copy files from a pod to local machine.
+
+kubectl cp <localPath> <ns>/<pod>:<path> → Copy files from local machine to a pod.
+
+kubectl get pod <name> -o yaml → Output pod definition in YAML.
+
+kubectl get pod <name> -o wide → Show pod details including node and IP.
 
 ### 6️⃣ ReplicaSet: lwm-replica (5 Replicas)
 
@@ -2523,5 +2564,6 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
