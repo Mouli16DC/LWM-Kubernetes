@@ -423,6 +423,7 @@ kubectl get svc → List services including exposed deployments.
 
 kubectl set image deployment/myapp-deployment myapp-container=nginx:1.27
 
+kubectl get deployment <deployment-name> -o yaml > deployment.yaml
 
 ```
 
@@ -2625,6 +2626,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
