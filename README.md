@@ -686,35 +686,60 @@ In **Part 4**, you will learn how to securely manage user access and permissions
 ## 🔧 How to Use
 
 👉 You can copy all YAMLs below into a file like `main.yaml` and run:
+```text
+cretethe policy as in aws
 
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "eks:DescribeCluster"
+      ],
+      "Resource": "<go to the cluster and get cluster ARN>"
+    }
+  ]
+}
+
+then create the user and attch the policy as dev and read only users
+
+```
 ```bash
 kubectl apply -f main.yaml
 ```
+in root user ec2 machine 
+
+k edit configmap aws-auth -n kube-system
+
+
 
 ### 1️⃣ aws-auth ConfigMap – Adding IAM Users
 
 ```yaml
 apiVersion: v1
-data:
-  mapRoles: |
-    - groups:
-      - system:bootstrappers
-      - system:nodes
-      rolearn: arn:aws:iam::992382429239:role/eks-node-group-role
-      username: system:node:{{EC2PrivateDNSName}}
-  mapUsers: |
-    - userarn: arn:aws:iam::992382429239:user/dev-user
-      username: dev-user
-      groups:
-        - dev-group
-    - userarn: arn:aws:iam::992382429239:user/readonly-user
-      username: readonly-user
-      groups:
-        - readonly-group
 kind: ConfigMap
 metadata:
   name: aws-auth
   namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::932117064855:role/ec2-workernode
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+
+  mapUsers: |
+    - userarn: arn:aws:iam::932117064855:user/dev-user
+      username: dev-user
+      groups:
+        - dev-group
+    - userarn: arn:aws:iam::932117064855:user/Read0nly-user
+      username: Read0nly-user
+      groups:
+        - readonly-group
+
 ```
 
 ### 2️⃣ Dev User Role and RoleBinding (Namespace-scoped Access)
@@ -724,7 +749,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: dev-role
-  namespace: dev-namespace
+  namespace: dev
 rules:
 - apiGroups: ["", "apps", "batch"]
   resources: ["pods", "services", "deployments", "jobs"]
@@ -734,7 +759,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: dev-binding
-  namespace: dev-namespace
+  namespace: dev
 subjects:
 - kind: Group
   name: dev-group
@@ -744,6 +769,14 @@ roleRef:
   name: dev-role
   apiGroup: rbac.authorization.k8s.io
 ```
+dev user ec2 machine open and conf9ig the dev user credtial as access and sceret keys
+
+the run the command as
+
+aws eks update-kubeconfig --namezigzag
+
+you can access,
+
 
 ### 3️⃣ ReadOnly User ClusterRole and ClusterRoleBinding
 ```yaml
@@ -2626,6 +2659,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
