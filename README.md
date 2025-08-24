@@ -421,6 +421,9 @@ kubectl expose deployment <name> --type=<type> --port=<port> → Expose deployme
 
 kubectl get svc → List services including exposed deployments.
 
+kubectl set image deployment/myapp-deployment myapp-container=nginx:1.27
+
+
 ```
 
 ## 🔧 How to Use
@@ -2622,6 +2625,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
