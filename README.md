@@ -374,6 +374,55 @@ In **Part 3**, you will learn how to manage applications using **Deployments** a
 
 ---
 
+```text
+🔹 Basic Deployment Commands
+
+kubectl create deployment <name> --image=<image> → Create a new deployment.
+
+kubectl get deployments → List all deployments in the namespace.
+
+kubectl describe deployment <name> → Show detailed info about a deployment.
+
+kubectl delete deployment <name> → Delete a deployment.
+
+kubectl apply -f <file>.yaml → Create/update deployment from YAML.
+
+kubectl rollout status deployment/<name> → Check rollout progress.
+
+kubectl rollout history deployment/<name> → View deployment revision history.
+
+kubectl rollout undo deployment/<name> → Rollback to previous revision.
+
+kubectl rollout undo deployment/<name> --to-revision=<rev> → Rollback to specific revision.
+
+kubectl rollout pause deployment/<name> → Pause rollout of a deployment.
+
+kubectl rollout resume deployment/<name> → Resume a paused rollout.
+
+🔹 Scaling Commands
+
+kubectl scale deployment <name> --replicas=<n> → Scale deployment to n replicas.
+
+kubectl autoscale deployment <name> --min=<m> --max=<x> --cpu-percent=<y> → Enable Horizontal Pod Autoscaler.
+
+🔹 Debugging & Monitoring
+
+kubectl get pods --selector=app=<name> → List pods for a deployment.
+
+kubectl logs deployment/<name> → Fetch logs from deployment pods.
+
+kubectl exec -it deployment/<name> -- <command> → Run command inside a pod.
+
+kubectl top pods --selector=app=<name> → Show resource usage of pods.
+
+🔹 Service & Exposure
+
+kubectl expose deployment <name> --type=<type> --port=<port> → Expose deployment as a service.
+
+kubectl get svc → List services including exposed deployments.
+
+```
+
 ## 🔧 How to Use
 
 👉 You can copy all YAMLs below into a file like `main.yaml` and run:
@@ -2573,6 +2622,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
