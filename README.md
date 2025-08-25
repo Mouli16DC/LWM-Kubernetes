@@ -805,6 +805,19 @@ roleRef:
 
 ### 4️⃣ Pod Accessing S3 Using IRSA
 
+ARCH=amd64
+PLATFORM=$(uname -s)_$ARCH
+curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz" \
+  | tar xz -C /tmp
+
+sudo mv /tmp/eksctl /usr/local/bin
+
+
+eksctl version
+
+create the iam role for s3 full access, 
+
+
 #### 🔹 Step 1: Enable OIDC Provider for Your EKS Cluster
 
 ```bash
@@ -2659,6 +2672,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
