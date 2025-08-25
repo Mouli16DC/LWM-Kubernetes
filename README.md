@@ -880,6 +880,9 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 # 🚀 Kubernetes Part 5 – YAML Reference Guide
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f8b8d60b-65f0-4e75-8707-6d250e8e520b" />
+
+
 In **Part 5**, you will learn advanced pod scheduling techniques in Kubernetes to control how and where your Pods run within your EKS cluster.
 
 ## 📚 What You’ll Learn
@@ -2672,6 +2675,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
