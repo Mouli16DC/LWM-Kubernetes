@@ -1369,6 +1369,116 @@ spec:
       claimName: ebs-pvc
 
 ```
+above storage class is onec you delete the pvc ebs is also deleted, so how to stay if delete pvs is
+
+```code
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+parameters:
+  type: gp3
+  fsType: ext4
+```  
+  
+
+🔑 EBS nature:
+
+EBS = block storage, attach panna oru node ku thaan available.
+
+So effectively, single node–based storage system nu solalaam.
+
+But inside that one node, multiple pods same EBS volume ah share pannalaam (all via same PVC).
+
+Condition: Access mode = ReadWriteOnce.  
+
+importnt noide:
+
+ipo single node ku EBS mount pantomna , athula run agura poda la atha use panikum system storage ha
+example, ipo yenode node ku 30gn size na athu fill achina my pod crash aidum atha avoid pana external EBS use panikanum production safe ,
+each node  ipdi use panikanum
+
+Node ku default 30GB disk irundha → pod la app logs / data ellam node ephemeral disk la save pannum → fill aana crash.
+
+App data production safe aaka → external EBS PVC mount pannunga.
+
+Pod /data la write panna → node disk la illai → directly AWS EBS volume la save aagum → node full aanaalum app crash agathu.
+
+Each node ku pods run panna vendiya storage external ah EBS attach pannunga → safe + persistent.
+
+👉 So unga summary statement 100% correct ✅
+
+📘 K8s Storage – Simple Study Notes
+🔑 Types of Storage
+
+Node Ephemeral Storage
+
+Node la irukka local disk (30GB maadhiri).
+
+Pod delete / reschedule aana → data poidum.
+
+App logs / tmp files ku ok, but prod data ku unsafe.
+
+EBS (Elastic Block Store)
+
+AWS la block storage (external hard disk maadhiri).
+
+Oru node ku attach panna podhum.
+
+PVC mount panna → pod la /data path la use pannalaam.
+
+Node crash aanaalum → data EBS la safe.
+
+EFS (Elastic File System)
+
+AWS la NFS system.
+
+Multi-node / multi-pod share panna use pannalaam (ReadWriteMany).
+
+RWX support irukkum.
+
+⚡ Access Modes
+
+RWO (ReadWriteOnce) → EBS support pannum (1 node ku attach).
+
+ROX (ReadOnlyMany) → not supported.
+
+RWX (ReadWriteMany) → EFS thaan use panna mudiyum.
+
+🛠 StorageClass
+
+reclaimPolicy: Delete → PVC delete panna EBS volumeum delete aagum.
+
+reclaimPolicy: Retain → PVC delete panna EBS volume AWS la stay pannum.
+
+parameters.fsType: ext4 → filesystem format (default ext4).
+
+volumeBindingMode: WaitForFirstConsumer → Pod schedule aana apram volume create aagum.
+
+💡 Best Practice
+
+Dev/Test → Delete policy ok (auto cleanup).
+
+Prod → Retain policy use pannunga (data safe).
+
+App ku data persist panna → always PVC + EBS use pannunga.
+
+Node la irukka 30GB fill aana → kubelet evict pannum → app crash.
+
+So prod pod data node disk la store panna koodathu.
+
+🔥 One-line Summary
+
+Node storage = temporary.
+
+EBS = persistent, single-node.
+
+EFS = persistent, multi-node.
+
+Always app data → PVC mount pannunga, node disk ku rely panna koodathu.
 
 ### 4️⃣ Static EBS Volume with Manual PV and PVC
 
@@ -2674,6 +2784,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
