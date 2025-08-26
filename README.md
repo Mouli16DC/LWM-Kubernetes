@@ -1625,6 +1625,15 @@ In **Day 7**, you'll learn how Kubernetes manages **application health**, **star
 ✅ Mount secrets as files and access securely
 
 ---
+<img width="760" height="407" alt="image" src="https://github.com/user-attachments/assets/6da6ce24-8f64-4e16-9a8b-a0d2c4cd4a9d" />
+
+<img width="900" height="522" alt="image" src="https://github.com/user-attachments/assets/6542ae62-4981-44ef-95cb-2c9fbc3db601" />
+```text
+itha flow satisf agatha vara, container restart agathu, ilana container restart agidum
+```
+<img width="900" height="522" alt="image" src="https://github.com/user-attachments/assets/c430852c-8e88-4b94-b9a9-58327d7ae8c7" />
+
+
 
 ## 🔧 How to Use
 
@@ -1633,7 +1642,11 @@ In **Day 7**, you'll learn how Kubernetes manages **application health**, **star
 ```bash
 kubectl apply -f main.yaml
 ```
+```text
+Readiness probe fail → traffic restricted (pod marked NotReady, no requests routed).
 
+Liveness probe fail → pod restarted.
+```
 ### 🧪 1️⃣ Pod example with All Three Probes
 
 ```yaml
@@ -1667,6 +1680,7 @@ spec:
       periodSeconds: 10
 ``` 
 
+
 ## ⏱️ Probe Timing Example (Understanding Failure/Success)
 
 Let's say you have this probe configuration:
@@ -1689,6 +1703,31 @@ timeoutSeconds: 10
 | 2:02:15 PM | 5th Check (Success) | ✅                 |
 | 2:02:45 PM | 6th Check (Success) | ✅ (Healthy again) |
 
+
+```text
+Probes:
+  Startup Probe
+  Liveness Probe
+  Readiness Probe
+
+initialDelaySeconds: 15
+periodSeconds: 30
+failureThreshold: 4
+successThreshold: 2
+timeoutSeconds: 10
+
+2:00:00 PM
+2:00:15 PM First Check (within 10 seconds give a response, Fail)
+2:00:45 PM Second Check (within 10 seconds give a response, Fail)
+2:01:15 PM Third Check (within 10 seconds give a response, Fail)
+2:01:45 PM Fourth Check (within 10 seconds give a response, Fail)
+2:02:15 PM Fifth Check (within 10 seconds give a response, Success)
+2:02:45 PM Sixth Check (within 10 seconds give a response, Success)
+
+all are handle by workernote kublet componnets 
+
+all property kuda kuduklam in sinle container ready or liveness or start propps depand on the project, path is application path for the springboot actuators to check the path
+```
 > 💡 Note: The probe starts only after the initialDelaySeconds. If failureThreshold is reached with consecutive failures, the container will be restarted. After restart, the container must pass successThreshold consecutive checks to be marked as Ready.
 
 ### 🧪 2️⃣ Liveness Probe with NGINX
@@ -1734,6 +1773,12 @@ spec:
       failureThreshold: 3
 
 ```
+
+<img width="962" height="150" alt="image" src="https://github.com/user-attachments/assets/2366713a-c1bb-433f-8fb2-6c64bae693b2" />
+
+<img width="960" height="142" alt="image" src="https://github.com/user-attachments/assets/d55b4722-d5f4-4f5d-a1ac-56a48b3df7a2" />
+
+<img width="500" height="347" alt="image" src="https://github.com/user-attachments/assets/4ddc33ed-5fd3-4ebb-b48c-8e12df3f6a59" />
 
 ### 🏁 4️⃣ Init Container Example
 
@@ -1781,6 +1826,34 @@ spec:
     emptyDir: {}
 ```
 
+
+```text
+**Exactly appadi thaan sidecar container pattern work agum:**
+
+**Main container **→ expose pannura output/log/endpoint.
+
+**Sidecar container **→ adha access pannitu process pannum (collect, transform, forward, monitor).
+
+Examples:
+
+Log shipping → Main container write pannura log file → sidecar (Fluentd/Filebeat) read pannitu ELK/CloudWatch ku anuppum.
+
+Proxy pattern → Main container app ku request pogum bodhu → sidecar (Envoy/Istio proxy) intercept & process pannum.
+
+Monitoring → Main container metrics endpoint /metrics → sidecar (Prometheus exporter) scrape pannum.
+
+👉 So yes, un statement “main container log endpoint ha sidecar container get pani process panum” correct.
+
+<img width="1007" height="75" alt="image" src="https://github.com/user-attachments/assets/731d1934-aa6b-4384-b71f-b6d714d52815" />
+
+temp ha oru image run pani check pani paklam, volume la check pana mudiyathu just default machine checkm panlam,  -- ithutha emphemeral container
+
+
+
+```
+<img width="583" height="102" alt="image" src="https://github.com/user-attachments/assets/ca3e2c92-8635-4cca-9f39-e59ccdf0e037" />
+list all environment varaible na athuku = printenv
+
 ### 🌿 6️⃣ Using Environment Variables  
 
 ```yaml
@@ -1797,7 +1870,15 @@ spec:
     - name: ENV_MSG
       value: "Hello from LearnWithMithran Youtube!"
 ```
+<img width="487" height="143" alt="image" src="https://github.com/user-attachments/assets/2e6b54f4-2711-43f1-afa4-eeeff011c1bc" />
 
+```text
+**Env var (direct)** = simple but hard-coded.
+
+**ConfigMap **= reusable, non-secure config [key value pair].
+
+**Secret **= secure, encrypted config.
+```
 ### ⚙️ 7️⃣ ConfigMap and Secret as envFrom
 
 ```yaml
@@ -1832,6 +1913,12 @@ spec:
         name: app-config
     - secretRef:
         name: app-secret
+```
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0a610874-f3bd-4e4f-b067-b28bd43f73ed" />
+
+```text
+after start my pod, i go change the config file change the values, that the time is not refelct my pod, while rerun my pod is done to work,
+so how to fix the issues we have to use pan volumes,
 ```
 
 ### 🔐 8️⃣ Secrets as Environment Variable and Mounted File
@@ -1868,6 +1955,9 @@ spec:
     secret:
       secretName: demo-secret
 ```
+<img width="523" height="140" alt="image" src="https://github.com/user-attachments/assets/ef7820b4-b74e-4a5b-aa31-7bfa30ec2512" />
+
+<img width="632" height="450" alt="image" src="https://github.com/user-attachments/assets/cadf3014-a06f-4c5b-a007-ab824df3465e" />
 
 ---
 
@@ -2798,6 +2888,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
