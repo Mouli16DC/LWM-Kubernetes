@@ -2583,6 +2583,10 @@ Kubernetes provides different workload types for managing application lifecycles
 | **Scaling Behavior**       | All pods are interchangeable                                | Pods are created **sequentially** and deleted in **reverse order** |
 | **Use Case**               | Stateless applications                                      | Stateful applications                                              |
 
+<img width="857" height="422" alt="image" src="https://github.com/user-attachments/assets/7722b2f5-e354-487c-9d53-bbec4989ea58" />
+
+<img width="929" height="225" alt="image" src="https://github.com/user-attachments/assets/a616aa5b-c42d-444e-9e4b-a6aa18aa2836" />
+
 
 ## 🧱 StatefulSet With Headless Service (Without Volumes)
 
@@ -2657,6 +2661,8 @@ spec:
   - port: 80
     targetPort: 80
 ```
+<img width="992" height="657" alt="image" src="https://github.com/user-attachments/assets/482c691f-aedb-4878-b110-dccb2ad77d36" />
+
 
 ## 🔄 StatefulSet vs Deployment – FQDN Behavior and Identity
 
@@ -2700,7 +2706,71 @@ spec:
     image: curlimages/curl
     command: ["sleep", "3600"]
 ```
+<img width="685" height="430" alt="image" src="https://github.com/user-attachments/assets/609427f3-58a1-4c19-a7d6-088c248d039e" />
 
+<img width="622" height="293" alt="image" src="https://github.com/user-attachments/assets/29a2fa9e-37a7-43f2-8987-6f079144dfac" />
+
+<img width="488" height="88" alt="image" src="https://github.com/user-attachments/assets/e24811d7-d1ee-46c6-851a-905e1eb01180" />
+
+<img width="662" height="225" alt="image" src="https://github.com/user-attachments/assets/5675bb69-7d44-428b-95d3-36b2131a0663" />
+
+<img width="652" height="383" alt="image" src="https://github.com/user-attachments/assets/a0f684ec-de94-4f49-acfd-a314e92901c9" />
+
+<img width="953" height="420" alt="image" src="https://github.com/user-attachments/assets/96fde1d4-2e91-42aa-8bad-f9d8ff5bd6d1" />
+
+<img width="953" height="420" alt="image" src="https://github.com/user-attachments/assets/ea32e3af-2086-4549-b722-b2cd805b2c74" />
+
+```test
+**Why satefulset na:**
+each pod run in different and order name , so athu db, redis caching layer, kafka mathri ku se paniklam, 
+mysql image run pana 3 pod craete pana, each pod to connect with diffrent app to serve, each microservice sku each db set mathiti so use an satyteful set 
+
+**Deployment**
+
+Pods stateless, ephemeral.
+
+Restart aana or scale aana, new pod random ID la create agum.
+
+Any pod handle pannalam, so load balancing ClusterIP/Service through automatic.
+
+Pod kitta cache / state store panna koodathu (restart aana odane state poidum).
+➡️ Example: SpringBoot REST API, frontend services.
+
+**StatefulSet**
+
+Pods ku stable identity + stable storage kudukkum.
+
+Pod names fixed: mysql-0, mysql-1, mysql-2.
+
+Pod restart aana same volume attach pannum (PVC stable).
+
+Cache panradhu default behavior illa, but state store panna option irukum.
+
+Load balancing Deployment mathiri illa.
+
+Mostly DB / Zookeeper / Kafka / Redis master-slave ku use pannuvanga.
+➡️ Example: MySQL, Kafka, Cassandra, MongoDB, Redis (cluster mode).
+
+**Direct Answer to ungal doubt**
+
+StatefulSet default-ah cache pannaathu.
+
+Main job: identity + persistent storage guarantee.
+
+Deployment la storage attach panna koodathu, adha pod life cycle ku lose aagidum.
+
+So database / message broker / cluster-aware apps ku StatefulSet thevai.
+
+Macha, unga doubt confirm panna:
+👉 StatefulSet = storage + identity.
+👉 Deployment = stateless scaling.
+
+Unga kelvi: "StatefulSet la cache default ah nadakuma?" → Illai da, cache nadakathu. It’s only about persistence + stable pod identity.
+
+<img width="1536" height="1024" alt="ChatGPT Image Aug 30, 2025, 04_21_27 PM" src="https://github.com/user-attachments/assets/b0322b81-4005-4699-94e3-451a30b3934c" />
+
+
+```
 ## 📦 StatefulSet With Persistent Volumes ==(need PV & PVC)==
 
 ```yaml
@@ -2751,6 +2821,7 @@ spec:
 ```
 
 ---
+<img width="147" height="111" alt="image" src="https://github.com/user-attachments/assets/33036a00-f703-4250-98ed-8d11339afc47" />
 
 ## 🌐 Kubernetes ExternalName Service – Access External Resources via DNS
 
@@ -2791,6 +2862,8 @@ spec:
   type: ExternalName
   externalName: www.google.com
 ```
+<img width="955" height="246" alt="image" src="https://github.com/user-attachments/assets/72f2c7f9-aebd-4133-a02a-7a123b2b3c35" />
+**real time usecases na, rds endpoint long ha iruntha atha sort name kuduthu use paniklam,**
 
 ---
 
@@ -2873,6 +2946,10 @@ HPA automatically adjusts the number of pods in a Deployment, ReplicaSet, or Sta
 - Your app is stateless
 - Metrics are available via Metrics Server
 
+<img width="692" height="72" alt="image" src="https://github.com/user-attachments/assets/0c57f4af-b460-4361-8e4d-d8032a641994" />
+
+https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+
 #### 🔧 Example YAML – HPA
 
 ```yaml
@@ -2927,6 +3004,86 @@ spec:
   targetCPUUtilizationPercentage: 50
 ```
 
+<img width="1262" height="636" alt="image" src="https://github.com/user-attachments/assets/96732634-caf6-407a-94a1-e29795ba6d16" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ea7b7ef6-83d1-4d26-8a0c-eac36f877ef6" />
+
+```text
+**1. Apply your manifests**
+kubectl apply -f hpa-example.yaml
+
+**2. Check Pods, Service, and HPA**
+kubectl get pods
+kubectl get svc
+kubectl get hpa
+
+**3. Get the Service ClusterIP/NodePort**
+
+If you used ClusterIP (default), expose it for testing:
+
+kubectl expose deployment php-apache --name=php-apache-service --port=80 --type=NodePort
+kubectl get svc php-apache-service
+
+
+Note the NodePort (e.g., 30080).
+
+**4. Generate load inside the cluster**
+
+Run a busybox pod to hit the service continuously:
+
+kubectl run -i --tty load-generator --image=busybox --restart=Never -- sh
+
+
+Inside the pod, run:
+
+while true; do wget -q -O- http://php-apache-service.default.svc.cluster.local; done
+
+
+(Press Ctrl+C to stop after some minutes.)
+
+**5. Watch HPA scaling**
+
+In another terminal, run:
+
+kubectl get hpa php-apache-hpa -w
+
+
+You’ll see TARGET CPU% increasing, and replicas will scale up (up to 10).
+
+**6. Verify pods scaling**
+kubectl get pods -l run=php-apache -w
+
+
+You’ll see new pods created as load increases.
+
+⚠️ Note: Metrics Server must be installed in your cluster (kubectl top pods should work).
+
+
+**Got it 👍 You want to delete everything you deployed (Deployment, Service, HPA, Pod).**
+
+**Run these commands:**
+
+**1. Delete by file**
+
+If you still have your YAML file (hpa-example.yaml):
+
+kubectl delete -f hpa-example.yaml
+
+**2. Delete resources manually**
+
+If YAML is not there, run:
+
+kubectl delete deployment php-apache
+kubectl delete service php-apache
+kubectl delete hpa php-apache-hpa
+kubectl delete pod load-generator
+
+**3. Verify cleanup**
+kubectl get all
+
+
+You should only see the default kubernetes service.
+```
+
 ### 🧱 What is VPA (Vertical Pod Autoscaler)?
 VPA automatically adjusts the CPU and memory requests/limits of containers in a pod to better match the actual usage.
 
@@ -2934,6 +3091,8 @@ VPA automatically adjusts the CPU and memory requests/limits of containers in a 
 
 - You want to optimize resource usage per pod
 - Your app does not scale well horizontally
+
+
 - You need to reduce over-provisioning
 
 #### 🔧 Modes in VPA:
@@ -2975,6 +3134,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
