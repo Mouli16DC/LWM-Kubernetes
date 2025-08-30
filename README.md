@@ -2414,6 +2414,8 @@ In **Day 9**, we deep dive into *Kubernetes workload types and resource manageme
 
 Jobs and CronJobs help run short-lived or recurring background tasks in Kubernetes.
 
+<img width="460" height="72" alt="image" src="https://github.com/user-attachments/assets/7c159798-e605-47b2-9ea1-35b90628c2c0" />
+
 ### 🔨 What is a Job?
 A Job creates one or more pods and ensures that a specific task runs to completion. Once the task finishes successfully, the Job is considered complete.
 
@@ -2439,7 +2441,7 @@ spec:
         image: busybox
         command: ["echo", "Hello from Kubernetes Job"]
       restartPolicy: Never
-  backoffLimit: 2
+  backoffLimit: 2   #default value is 6 time restrt if fails
 ```
 
 
@@ -2470,8 +2472,69 @@ spec:
           - name: cleanup
             image: busybox
             command: ["sh", "-c", "echo Cleaning temp files at $(date)"]
-          restartPolicy: OnFailure
+          restartPolicy: OnFailure  #  failure achina restart pannu deafult value is 6 time
 ```
+<img width="1011" height="690" alt="image" src="https://github.com/user-attachments/assets/119ffed3-9c8c-4ee3-ad9c-8be385a95bc5" />
+
+**🔹 Job Commands**
+
+**A Job runs a one-time task until completion.****
+
+**1. Create a Job**
+kubectl create job my-job --image=busybox -- echo "Hello from Job"
+
+**2. Apply a Job from YAML**
+kubectl apply -f job.yaml
+
+**3. Get Jobs**
+kubectl get jobs
+
+**4. Check Job details**
+kubectl describe job my-job
+
+**5. Check Job pods**
+kubectl get pods --selector=job-name=my-job
+
+**6. Logs from Job pod**
+kubectl logs <pod-name>
+
+**7. Delete Job**
+kubectl delete job my-job
+
+**🔹 CronJob Commands****
+
+A CronJob runs a task on a schedule (like Linux cron).
+
+**1. Create a CronJob**
+kubectl create cronjob my-cron --image=busybox --schedule="*/5 * * * *" -- echo "Hello from CronJob"
+
+
+**👉 Runs every 5 minutes.**
+
+**2. Apply CronJob from YAML**
+kubectl apply -f cronjob.yaml
+
+**3. Get CronJobs**
+kubectl get cronjobs
+
+**4. Describe CronJob**
+kubectl describe cronjob my-cron
+
+**5. Get Jobs created by CronJob**
+kubectl get jobs --watch
+
+**6. Get Pods created by CronJob**
+kubectl get pods --selector=job-name=<job-name>
+
+**7. Delete CronJob**
+kubectl delete cronjob my-cron
+
+
+⚡ Quick difference:
+
+Job = One-time task.
+
+CronJob = Scheduled repeating task.
 
 ### 🆚 Jobs vs CronJobs – Comparison Table
 
@@ -2489,6 +2552,9 @@ spec:
 ## ⚔️ Deployments vs StatefulSets
 
 Kubernetes provides different workload types for managing application lifecycles. Two of the most common are Deployments and StatefulSets.
+
+<img width="471" height="497" alt="image" src="https://github.com/user-attachments/assets/7f082c5f-3e4e-4dfc-8e80-5f4122cdc228" />
+
 
 
 ### ✅ When to Use Deployments
@@ -2909,6 +2975,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
