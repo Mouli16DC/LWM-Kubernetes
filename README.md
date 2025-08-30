@@ -2156,7 +2156,11 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller2
 ```
-
+```text
+k get deployment -n kube-sytem   -> checkout panna, aws load balancer anga run agum
+k get svc -n kube-system -> service runagum
+k get pods -n kube-system -> pods run agum
+k get pods -n kube-system -o wide -> each naode la oru pod run agyum for load balancer ku athutha internal load balancer ha act agum
 ---
 
 ## 🌐 Ingress Setup: Basic Echo App
@@ -2215,6 +2219,8 @@ spec:
             port:
               number: 80
 ```
+<img width="1113" height="401" alt="image" src="https://github.com/user-attachments/assets/1120a500-fb34-45e8-a391-fa47083270a1" />
+<img width="572" height="83" alt="image" src="https://github.com/user-attachments/assets/4008b973-c7e4-447a-8cb0-dfc04136f516" />
 
 ## 👥 Multi-Team Namespaces with Shared ALB
 
@@ -2888,6 +2894,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
