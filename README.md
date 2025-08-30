@@ -2224,6 +2224,8 @@ spec:
 
 ## 👥 Multi-Team Namespaces with Shared ALB
 
+<img width="972" height="731" alt="image" src="https://github.com/user-attachments/assets/8919b84a-2c2d-4143-97b3-0bf03b2e21b4" />
+
 ### Create Namespaces
 
 ```yaml
@@ -2356,7 +2358,20 @@ spec:
             port:
               number: 80
 ```
+<img width="1666" height="441" alt="image" src="https://github.com/user-attachments/assets/1f265568-da2d-4016-84d9-1b3d234b0d54" />
 
+<img width="902" height="158" alt="image" src="https://github.com/user-attachments/assets/794455db-cf54-4cb2-9709-658cb1aef487" />
+
+single load balancer only created, because in yaml annotation to note an shared lb , so single lb to laod balnce with ingress setup
+
+<img width="1042" height="247" alt="image" src="https://github.com/user-attachments/assets/3ee6381a-7951-475b-8bf3-f83846f84c33" />
+
+lb/a or lb/b
+
+
+<img width="628" height="183" alt="image" src="https://github.com/user-attachments/assets/cf19890a-249a-43c9-a166-b69268c01749" />
+
+ different pods to traffic distributed as well
 ## 📌 Notes
 
 - Ingress class should match your ALB controller: kubernetes.io/ingress.class: alb
@@ -2894,6 +2909,7 @@ Subscribe to our **YouTube Channel** – *Learn With Mithran*
 
 
 ---
+
 
 
 
